@@ -1,0 +1,75 @@
+# Spring Boot 配置片段示例
+# 本文件为参考配置，完整配置请克隆 get_jobs 仓库
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: get-jobs
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/get_jobs?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: ${DB_PASSWORD:your_password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+# 爬虫配置
+crawler:
+  # 请求间隔（毫秒）
+  request-interval: 3000
+  
+  # 重试次数
+  retry-times: 3
+  
+  # 超时时间（毫秒）
+  timeout: 30000
+  
+  # 是否启用无头模式
+  headless: true
+  
+  # 支持的站点
+  sites:
+    - name: boss
+      enabled: true
+      baseUrl: https://www.zhipin.com
+    - name: liepin
+      enabled: true
+      baseUrl: https://www.liepin.com
+    - name: 51job
+      enabled: true
+      baseUrl: https://www.51job.com
+    - name: zhaopin
+      enabled: true
+      baseUrl: https://www.zhaopin.com
+
+# 搜索配置
+search:
+  # 默认搜索关键词
+  default-keywords:
+    - Java开发
+    - 前端开发
+    - Python开发
+  
+  # 默认城市
+  default-cities:
+    - 北京
+    - 上海
+    - 深圳
+    - 杭州
+
+# 输出配置
+output:
+  # 导出格式
+  format: json
+  
+  # 导出路径
+  path: ./output
+  
+  # 是否去重
+  deduplicate: true
